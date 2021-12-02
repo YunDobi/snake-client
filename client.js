@@ -1,4 +1,5 @@
-const net = require("net")
+const net = require("net");
+const { stdin } = require("process");
 
 const connect = function () {
   const conn = net.createConnection({
@@ -7,14 +8,15 @@ const connect = function () {
   });
   conn.setEncoding("utf8");
 
-  conn.on("connect", (Name) => {
+  conn.on("connect", () => {
     console.log("Successfully connected to game server");
     conn.write('Name: Yun');
   });
-
-  conn.on("data", () => {
-    console.log("you ded cuz you idled");
+  conn.on("data", (data) => {
+    console.log(data);
   });
+
   return conn;
 };
-module.exports = {connection: connect}
+
+module.exports = {connect};
